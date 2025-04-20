@@ -1,10 +1,11 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env) => {
   const app = env.app || "disk";
-  const isDevelopment = process.env.NODE_ENV !== "development";
+  const isDevelopment = process.env.NODE_ENV !== "production";
 
   return {
     mode: isDevelopment ? "development" : "production",
@@ -15,7 +16,7 @@ module.exports = (env) => {
     target: "electron-renderer",
     devtool: isDevelopment ? "source-map" : false,
     output: {
-      path: path.resolve(__dirname, `apps/${app}/dist`),
+      path: path.resolve(__dirname, `dist/${app}`),
       filename: "[name].js",
       clean: true,
     },
@@ -29,6 +30,10 @@ module.exports = (env) => {
         {
           test: /\.css$/,
           use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif|svg)$/,
+          type: "asset/resource",
         },
       ],
     },
@@ -46,10 +51,15 @@ module.exports = (env) => {
           isDevelopment ? "development" : "production"
         ),
       }),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: "public/img", to: "img" }, // מעתיק את img/ לשורש של build/
+        ],
+      }),
     ],
     devServer: {
       static: {
-        directory: path.join(__dirname, `apps/${app}/dist`),
+        directory: path.join(__dirname, `dist/${app}`),
       },
       port: app === "disk" ? 3000 : 3001,
       hot: true,

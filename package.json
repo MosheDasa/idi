@@ -8,13 +8,17 @@
     "dev:notification": "webpack serve --config webpack.config.js --env app=notification",
     "build:disk": "webpack --config webpack.config.js --env app=disk --mode development",
     "build:notification": "webpack --config webpack.config.js --env app=notification --mode development",
-    "start:disk": "electron apps/disk/dist/main.js",
-    "start:notification": "electron apps/notification/dist/main.js",
+    "start:disk": "electron dist/disk/main.js",
+    "start:notification": "electron dist/notification/main.js",
     "notification": "npm run build:notification && npm run start:notification",
-    "disk": "npm run build:disk && npm run start:disk"
+    "disk": "npm run build:disk && npm run start:disk",
+    "watch:disk": "nodemon --watch apps/disk/src --ext ts,tsx,html,css --exec \"npm run disk\"",
+    "watch:notification": "nodemon --watch apps/notification/src --ext ts,tsx,html,css --exec \"npm run notification\"",
+    "watch": "concurrently \"npm run watch:disk\" \"npm run watch:notification\""
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
+    "copy-webpack-plugin": "^13.0.0",
     "electron": "^28.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -24,9 +28,11 @@
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
+    "concurrently": "^8.2.2",
     "css-loader": "^6.8.1",
     "eslint": "^8.56.0",
     "html-webpack-plugin": "^5.6.0",
+    "nodemon": "^3.0.2",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",

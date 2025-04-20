@@ -50,11 +50,11 @@ function createWindow() {
   notificationWindow.loadFile(path.join(__dirname, "index.html"));
 
   // Auto-close after 5 seconds
-  setTimeout(() => {
-    if (notificationWindow && !notificationWindow.isDestroyed()) {
-      notificationWindow.close();
-    }
-  }, 5000);
+  // setTimeout(() => {
+  //   if (notificationWindow && !notificationWindow.isDestroyed()) {
+  //     notificationWindow.close();
+  //   }
+  // }, 5000);
 }
 
 app.whenReady().then(createWindow);
