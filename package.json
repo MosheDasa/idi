@@ -1,0 +1,40 @@
+{
+  "name": "electron-monorepo",
+  "version": "1.0.0",
+  "description": "Electron monorepo with disk and notification apps",
+  "main": "index.js",
+  "scripts": {
+    "dev:disk": "webpack serve --config webpack.config.js --env app=disk",
+    "dev:notification": "webpack serve --config webpack.config.js --env app=notification",
+    "build:disk": "webpack --config webpack.config.js --env app=disk --mode development",
+    "build:notification": "webpack --config webpack.config.js --env app=notification --mode development",
+    "start:disk": "electron apps/disk/dist/main.js",
+    "start:notification": "electron apps/notification/dist/main.js",
+    "notification": "npm run build:notification && npm run start:notification",
+    "disk": "npm run build:disk && npm run start:disk"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "electron": "^28.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "css-loader": "^6.8.1",
+    "eslint": "^8.56.0",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
+  }
+}
